@@ -9,7 +9,7 @@ const HomeScreen = ({ navigation }) => {
       <Text>Home Screen</Text>
       <Button
         title="Let' Begin"
-        onPress={() => navigation.push('Home')}
+        onPress={() => navigation.navigate('Start', { id: 12, name: 'Zaheer' })}
       />
     </View>
   );
@@ -19,9 +19,17 @@ const styles = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', justifyContent: 'center' }
 });
 
-const StartScreen = ({ navigation }) => {
+const StartScreen = ({ navigation, route }) => {
+  const id = route.params.id;
   return (
     <View style={styles.container}>
+      <Text>ID: {id}</Text>
+      <Button
+        title="Get New ID"
+        onPress={() => navigation.setParams(
+          { id: Math.floor(Math.random() * 100) })}
+      />
+      <Text>Name: {route.params.name}</Text>
       <Text>(Screen 1)</Text>
       <Text>Welcome to My App</Text>
       <Button
@@ -40,6 +48,10 @@ const DashboardScreen = ({ navigation }) => {
       <Button
         title="Back"
         onPress={() => navigation.goBack()}
+      ></Button>
+      <Button
+        title="Go to Home Screen"
+        onPress={() => navigation.popToTop()}
       ></Button>
     </View>
   );
