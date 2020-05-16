@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 
@@ -10,33 +11,16 @@ import HomeScreen from "./screens/HomeScreen";
 import StartScreen from "./screens/StartScreen";
 import LastScreen from "./screens/LastScreen";
 
-const Drawer = createDrawerNavigator();
 
-function MyDrawer() {
+
+const Tab = createMaterialBottomTabNavigator();
+
+function BottomTabs() {
   return (
-    <Drawer.Navigator
-      drawerType="slide"
-      drawerStyle={{
-        backgroundColor: 'lightblue',
-        width: 200,
-      }}
-    >
-      <Drawer.Screen
-        name="Home"
-        component={StackNavigator}
-        options={{
-          drawerLabel: "Welcome Home",
-          drawerIcon: () => <Ionicons name="md-home" size={26} />
-        }}
-      />
-      <Drawer.Screen
-        name="Contacts"
-        component={Contacts}
-        options={{
-          drawerIcon: () => <Ionicons name="md-contacts" size={26} />,
-        }}
-      />
-    </Drawer.Navigator>
+    <Tab.Navigator>
+      <Tab.Screen name="Contacts" component={Contacts} />
+      <Tab.Screen name="History" component={CallHistory} />
+    </Tab.Navigator>
   );
 }
 
@@ -47,6 +31,45 @@ const Contacts = () => {
     </View>
   );
 }
+
+const CallHistory = () => {
+  return (
+    <View style={styles.container}>
+      <Text>Contacts Call Log</Text>
+    </View>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+function MyDrawer() {
+  return (
+    <Drawer.Navigator
+      drawerType="slide"
+      drawerStyle={{
+        width: 200,
+      }}
+    >
+      <Drawer.Screen
+        name="Home"
+        component={StackNavigator}
+        options={{
+          drawerLabel: "Welcome Home",
+          drawerIcon: () => <Ionicons name="md-home" size={26} color="#8CBBF1" />,
+        }}
+      />
+      <Drawer.Screen
+        name="Contacts"
+        component={BottomTabs}
+        options={{
+          drawerIcon: () => <Ionicons name="md-contacts" size={26} color="#8CBBF1" />,
+        }}
+      />
+    </Drawer.Navigator>
+  );
+}
+
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', justifyContent: 'center' }
@@ -59,14 +82,15 @@ const StackNavigator = () => {
     <Stack.Navigator
       initialRouteName={"Home"}
       screenOptions={({ navigation }) => ({
-        headerTintColor: 'grey',
+        headerTintColor: 'white',
         headerStyle: {
-          backgroundColor: 'lightblue'
+          backgroundColor: '#8CBBF1'
         },
         headerLeft: () =>
           <View style={{ paddingLeft: 10 }}>
             <Ionicons
               name="md-menu"
+              color="white"
               size={32}
               onPress={() => navigation.toggleDrawer()}
             />
@@ -81,13 +105,13 @@ const StackNavigator = () => {
           title: 'Start Here',
           headerRight: () =>
             <View style={{ paddingRight: 10 }}>
-              <FontAwesome name="edit" size={32} color="black" />
+              <FontAwesome name="edit" size={32} color="white" />
             </View>,
           headerLeft: () => <View style={{ paddingLeft: 10 }}>
             <Ionicons
               name="md-arrow-round-back"
               size={32}
-              color="black"
+              color="white"
               onPress={() => navigation.goBack()}
             />
           </View>
