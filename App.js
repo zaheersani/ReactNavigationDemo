@@ -12,8 +12,21 @@ const Drawer = createDrawerNavigator();
 
 function MyDrawer() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={StackNavigator} />
+    <Drawer.Navigator
+      openByDefault={true}
+      drawerType="slide"
+      drawerStyle={{
+        backgroundColor: 'lightblue',
+        width: 200,
+      }}
+    >
+      <Drawer.Screen
+        name="Home"
+        component={StackNavigator}
+        options={{
+          drawerLabel: "Welcome Home",
+        }}
+      />
       <Drawer.Screen name="Drawer 2" component={Drawer2} />
     </Drawer.Navigator>
   );
@@ -45,13 +58,18 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       initialRouteName={"Home"}
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         // headerTitleAlign: "center",
         headerTintColor: 'grey',
         headerStyle: {
           backgroundColor: 'lightblue'
-        }
-      }}
+        },
+        headerLeft: () => <Button
+          title="Menu"
+          onPress={() => navigation.openDrawer()}
+        />
+      })
+      }
     >
       <Stack.Screen
         name="Start"
