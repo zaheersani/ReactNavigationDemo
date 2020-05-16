@@ -11,15 +11,36 @@ import HomeScreen from "./screens/HomeScreen";
 import StartScreen from "./screens/StartScreen";
 import LastScreen from "./screens/LastScreen";
 
-
-
 const Tab = createMaterialBottomTabNavigator();
 
 function BottomTabs() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Contacts" component={Contacts} />
-      <Tab.Screen name="History" component={CallHistory} />
+    <Tab.Navigator
+      initialRouteName="Contacts"
+      activeColor="white"
+      inactiveColor="grey"
+      shifting={true}
+      barStyle={{
+        backgroundColor: 'white',
+        // paddingBottom: 10,
+      }}
+    >
+      <Tab.Screen
+        name="Contacts"
+        component={Contacts}
+        options={{
+          tabBarColor: '#D02760',
+          tabBarIcon: ({ color }) => <Ionicons name="md-contact" size={24} color={color} />
+        }}
+      />
+      <Tab.Screen
+        name="History"
+        component={CallHistory}
+        options={{
+          tabBarColor: '#006D69',
+          tabBarIcon: ({ color }) => <FontAwesome name="history" size={24} color={color} />
+        }}
+      />
     </Tab.Navigator>
   );
 }
